@@ -4,14 +4,14 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Sparkles } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Text } from "./components/ui/Text";
 import { Button } from "./components/ui/Button";
 import { Input } from "./components/ui/Input";
 import { Card } from "./components/ui/Card";
-import { Checkbox } from "./components/ui/Checkbox";
 import { Badge } from "./components/ui/Badge";
-import { Task } from "./types";
+import { TaskItem } from "./components/TaskItem";
+import { Task, SubTask } from "./types";
 
 const TASK_COLORS = ["bg-white"];
 
@@ -24,7 +24,13 @@ export default function App() {
     const savedTasks = localStorage.getItem("retroui-tasks");
     if (savedTasks) {
       try {
-        setTasks(JSON.parse(savedTasks));
+        const parsed = JSON.parse(savedTasks);
+        // Ensure subTasks exists for all tasks
+        const migrated = parsed.map((t: any) => ({
+          ...t,
+          subTasks: t.subTasks || [],
+        }));
+        setTasks(migrated);
       } catch (e) {
         console.error("Failed to parse tasks from local storage");
       }
@@ -46,6 +52,7 @@ export default function App() {
       completed: false,
       color: TASK_COLORS[Math.floor(Math.random() * TASK_COLORS.length)],
       createdAt: Date.now(),
+      subTasks: [],
     };
 
     setTasks([newTask, ...tasks]);
@@ -60,6 +67,52 @@ export default function App() {
 
   const deleteTask = (id: string) => {
     setTasks(tasks.filter((t) => t.id !== id));
+  };
+
+  const addSubTask = (taskId: string, title: string) => {
+    setTasks(
+      tasks.map((t) => {
+        if (t.id === taskId) {
+          const newSub: SubTask = {
+            id: crypto.randomUUID(),
+            title,
+            completed: false,
+          };
+          return { ...t, subTasks: [...t.subTasks, newSub] };
+        }
+        return t;
+      }),
+    );
+  };
+
+  const toggleSubTask = (taskId: string, subTaskId: string) => {
+    setTasks(
+      tasks.map((t) => {
+        if (t.id === taskId) {
+          return {
+            ...t,
+            subTasks: t.subTasks.map((s) =>
+              s.id === subTaskId ? { ...s, completed: !s.completed } : s,
+            ),
+          };
+        }
+        return t;
+      }),
+    );
+  };
+
+  const deleteSubTask = (taskId: string, subTaskId: string) => {
+    setTasks(
+      tasks.map((t) => {
+        if (t.id === taskId) {
+          return {
+            ...t,
+            subTasks: t.subTasks.filter((s) => s.id !== subTaskId),
+          };
+        }
+        return t;
+      }),
+    );
   };
 
   const completedCount = tasks.filter((t) => t.completed).length;
@@ -110,38 +163,15 @@ export default function App() {
             </div>
           ) : (
             tasks.map((task) => (
-              <div
+              <TaskItem
                 key={task.id}
-                className={`group flex flex-col justify-between p-6 border-4 border-black ${task.color} ${task.completed ? "opacity-50" : ""} shadow-[8px_8px_0_0_#000] hover:-translate-y-1 hover:shadow-[10px_10px_0_0_#000] transition-all relative min-h-[160px]`}
-              >
-                <div className="flex items-start justify-between gap-4 w-full mb-4">
-                  <Text
-                    variant="h3"
-                    className={`break-words flex-1 uppercase ${task.completed ? "line-through decoration-4 decoration-black/50 text-black/70" : "text-black"}`}
-                  >
-                    {task.title}
-                  </Text>
-                  <Checkbox
-                    checked={task.completed}
-                    onCheckedChange={() => toggleTask(task.id)}
-                  />
-                </div>
-
-                <div className="mt-auto flex justify-between items-center pt-4 border-t-2 border-black">
-                  <span className="text-xs font-bold uppercase underline">
-                    [{new Date(task.createdAt).toISOString().split("T")[0]}]
-                  </span>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => deleteTask(task.id)}
-                    aria-label="Delete Task"
-                    className="px-3 py-1 text-xs uppercase"
-                  >
-                    <Trash2 className="w-4 h-4 mr-1 stroke-[3]" /> DELETE
-                  </Button>
-                </div>
-              </div>
+                task={task}
+                onToggle={toggleTask}
+                onDelete={deleteTask}
+                onAddSubTask={addSubTask}
+                onToggleSubTask={toggleSubTask}
+                onDeleteSubTask={deleteSubTask}
+              />
             ))
           )}
         </div>
