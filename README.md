@@ -2,7 +2,11 @@
 
 A bold, comic-book inspired task management application built with React, Vite, and Tailwind CSS.
 
-![Demo Screenshot](demo/demo1.png)
+## Demo 1
+![Main View](demo/demo1.png)
+
+## Demo 2
+![Subtasks View](demo/demo2.png)
 
 ## Features
 
@@ -13,6 +17,10 @@ A bold, comic-book inspired task management application built with React, Vite, 
     - Mark tasks as complete/incomplete.
     - Delete tasks.
     - Automatically captures the creation date.
+- **Subtasks**:
+    - Add multiple small tasks within each main task.
+    - Individual completion toggles for subtasks.
+    - Delete individual subtasks.
 
 ## Getting Started
 
