@@ -40,7 +40,7 @@ export function TaskItem({
       <div className="flex items-start justify-between gap-4 w-full mb-4">
         <Text
           variant="h3"
-          className={`break-words flex-1 uppercase ${task.completed ? "line-through decoration-4 decoration-black/50 text-black/70" : "text-black"}`}
+          className={`break-words flex-1 ${task.completed ? "line-through decoration-4 decoration-black/50 text-black/70" : "text-black"}`}
         >
           {task.title}
         </Text>
@@ -60,7 +60,7 @@ export function TaskItem({
               className="scale-75"
             />
             <span
-              className={`text-sm font-bold uppercase flex-1 ${sub.completed ? "line-through text-black/40" : "text-black"}`}
+              className={`text-sm font-bold flex-1 ${sub.completed ? "line-through text-black/40" : "text-black"}`}
             >
               {sub.title}
             </span>
@@ -71,38 +71,38 @@ export function TaskItem({
             >
               <Trash2 className="w-3 h-3 text-red-600" />
             </button>
-          </div>
-        ))}
+            </div>
+            ))}
 
-        {/* Add Subtask Input */}
-        <form onSubmit={handleAddSubTask} className="flex gap-2 mt-4">
-          <Input
+            {/* Add Subtask Input */}
+            <form onSubmit={handleAddSubTask} className="flex gap-2 mt-4">
+            <Input
             type="text"
             placeholder="Add subtask..."
             value={newSubTaskTitle}
-            onChange={(e) => setNewSubTaskTitle(e.target.value)}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
             className="h-8 text-xs py-1 px-2 border-2"
-          />
-          <Button type="submit" size="sm" className="h-8 px-2 py-0 border-2 shadow-[2px_2px_0_0_#000]">
+            />
+            <Button type="submit" size="sm" className="h-8 px-2 py-0 border-2 shadow-[2px_2px_0_0_#000]">
             <Plus className="w-3 h-3" />
-          </Button>
-        </form>
-      </div>
+            </Button>
+            </form>
+            </div>
 
-      {/* Footer */}
-      <div className="mt-auto flex justify-between items-center pt-4 border-t-2 border-black">
-        <span className="text-[10px] font-bold uppercase underline">
-          [{new Date(task.createdAt).toISOString().split("T")[0]}]
-        </span>
-        <Button
-          variant="danger"
-          size="sm"
-          onClick={() => onDelete(task.id)}
-          aria-label="Delete Task"
-          className="px-2 py-1 text-[10px] uppercase h-7 shadow-[2px_2px_0_0_#000]"
-        >
-          <Trash2 className="w-3 h-3 mr-1 stroke-[3]" /> DELETE
-        </Button>
+            {/* Footer */}
+            <div className="mt-auto flex justify-between items-center pt-4 border-t-2 border-black">
+            <span className="text-[10px] font-bold underline">
+            [{new Date(task.createdAt).toISOString().split("T")[0]}]
+            </span>
+            <Button
+            variant="danger"
+            size="sm"
+            onClick={() => onDelete(task.id)}
+            aria-label="Delete Task"
+            className="px-2 py-1 text-[10px] h-7 shadow-[2px_2px_0_0_#000]"
+            >
+            <Trash2 className="w-3 h-3 mr-1 stroke-[3]" /> DELETE
+            </Button>
       </div>
     </div>
   );
