@@ -101,7 +101,7 @@ export function TaskItem({
             aria-label="Delete Task"
             className="px-2 py-1 text-[10px] h-7 shadow-[2px_2px_0_0_#000]"
             >
-            <Trash2 className="w-3 h-3 mr-1 stroke-[3]" /> DELETE
+            <Trash2 className="w-3 h-3 mr-1 stroke-[3]" /> Delete
             </Button>
       </div>
     </div>
