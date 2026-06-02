@@ -10,6 +10,7 @@ import { Button } from "./components/ui/Button";
 import { Input } from "./components/ui/Input";
 import { Card } from "./components/ui/Card";
 import { Badge } from "./components/ui/Badge";
+import { Footer } from "./components/ui/Footer";
 import { TaskItem } from "./components/TaskItem";
 import { Task, SubTask } from "./types";
 
@@ -118,7 +119,7 @@ export default function App() {
   const completedCount = tasks.filter((t) => t.completed).length;
 
   return (
-    <div className="min-h-screen bg-[#FFDE03] p-6 md:p-12 font-mono selection:bg-black selection:text-white pb-24 flex flex-col">
+    <div className="min-h-screen bg-[#FFDE03] p-6 md:p-12 font-sans selection:bg-black selection:text-white flex flex-col">
       <div className="max-w-4xl mx-auto w-full space-y-12">
         {/* Header */}
         <header className="flex flex-col md:flex-row items-center justify-between gap-6 border-b-4 border-black pb-6">
@@ -176,6 +177,7 @@ export default function App() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
