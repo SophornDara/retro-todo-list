@@ -12,7 +12,7 @@ export function Text({ variant = 'p', className = '', children, ...props }: Text
   const baseStyles = 'text-gray-900';
   
   const variants = {
-    h1: 'text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none',
+    h1: 'text-5xl md:text-7xl font-black tracking-tighter leading-none',
     h2: 'text-3xl md:text-5xl font-extrabold tracking-tight',
     h3: 'text-2xl md:text-3xl font-black',
     h4: 'text-xl font-bold',
