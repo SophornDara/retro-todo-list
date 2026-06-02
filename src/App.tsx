@@ -124,14 +124,14 @@ export default function App() {
         {/* Header */}
         <header className="flex flex-col md:flex-row items-center justify-between gap-6 border-b-4 border-black pb-6">
           <div className="flex flex-col md:flex-row items-center gap-4 text-black text-center md:text-left">
-            <Text variant="h1">TASK MANAGEMENT</Text>
+            <Text variant="h1">Task Management</Text>
           </div>
           <div className="flex items-center gap-4">
             <Badge color="bg-white" className="px-6 py-2 text-base md:text-lg">
-              TOTAL: {tasks.length}
+              Total: {tasks.length}
             </Badge>
             <Badge color="bg-white" className="px-6 py-2 text-base md:text-lg">
-              DONE: {completedCount}
+              Done: {completedCount}
             </Badge>
           </div>
         </header>
@@ -150,7 +150,7 @@ export default function App() {
             </div>
             <Button type="submit" size="lg" className="w-full sm:w-auto">
               <Plus className="w-6 h-6 mr-2 stroke-[3]" />
-              ADD TASK
+              Add Task
             </Button>
           </form>
         </Card>
@@ -159,7 +159,7 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {tasks.length === 0 ? (
             <div className="col-span-1 md:col-span-2 text-center py-20 border-4 border-black border-dashed bg-white space-y-4">
-              <Text variant="h3">ALL DONE</Text>
+              <Text variant="h3">All Done</Text>
               <Text>You have no tasks for today. Add one above!</Text>
             </div>
           ) : (
