@@ -144,9 +144,16 @@ export default function App() {
   const completedCount = tasks.filter((t) => t.completed).length;
 
   return (
-    <div className="min-h-screen bg-[#FFDE03] p-6 md:p-12 font-sans selection:bg-black selection:text-white flex flex-col">
-      <div className="max-w-4xl mx-auto w-full space-y-12">
-        {/* Header */}
+    <>
+      {/* 3D Spline Background */}
+      <div className="fixed top-0 left-0 w-full h-full -z-10">
+        <Spline scene="https://prod.spline.design/6Wq1Q7YGyMsqL-QO/scene.splinecode" />
+      </div>
+
+      {/* Main Content */}
+      <div className="min-h-screen bg-transparent p-6 md:p-12 font-sans selection:bg-black selection:text-white flex flex-col relative z-0">
+        <div className="max-w-4xl mx-auto w-full space-y-12">
+          {/* Header */}
         <header className="flex flex-col md:flex-row items-center justify-between gap-6 border-b-4 border-black pb-6">
           <div className="flex flex-col md:flex-row items-center gap-4 text-black text-center md:text-left">
             <Text variant="h1">Task Management</Text>
