@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Plus } from "lucide-react";
 import { Text } from "./components/ui/Text";
 import { Button } from "./components/ui/Button";
@@ -16,9 +16,34 @@ import { Task, SubTask } from "./types";
 
 const TASK_COLORS = ["bg-white"];
 
+const SUGGESTIONS = [
+  "Buy groceries",
+  "Read a book",
+  "Go for a walk",
+  "Reply to emails",
+  "Pay bills",
+  "Exercise",
+  "Cook dinner",
+  "Clean the house",
+  "Do laundry",
+  "Call family",
+  "Schedule appointment",
+  "Review pull requests",
+  "Update dependencies"
+];
+
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const filteredSuggestions = newTaskTitle.trim() === ""
+    ? []
+    : SUGGESTIONS.filter(
+        (s) =>
+          s.toLowerCase().includes(newTaskTitle.toLowerCase()) &&
+          s.toLowerCase() !== newTaskTitle.toLowerCase()
+      );
 
   // Load initial tasks from local storage
   useEffect(() => {
