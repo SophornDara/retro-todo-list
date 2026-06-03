@@ -139,14 +139,36 @@ export default function App() {
         {/* Input area */}
         <Card backgroundColor="bg-white">
           <form onSubmit={addTask} className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
+            <div className="flex-1 relative">
               <Input
                 type="text"
                 placeholder="What needs to be done?"
                 value={newTaskTitle}
-                onChange={(e) => setNewTaskTitle(e.target.value)}
+                onChange={(e) => {
+                  setNewTaskTitle(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                 autoFocus
               />
+              {showSuggestions && filteredSuggestions.length > 0 && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border-4 border-black shadow-[4px_4px_0_0_#000] z-10 max-h-48 overflow-y-auto">
+                  {filteredSuggestions.map((suggestion, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className="w-full text-left px-4 py-2 border-b-2 border-black last:border-b-0 hover:bg-[#FFDE03] hover:font-bold transition-colors focus:outline-none focus:bg-[#FFDE03] focus:font-bold"
+                      onClick={() => {
+                        setNewTaskTitle(suggestion);
+                        setShowSuggestions(false);
+                      }}
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             <Button type="submit" size="lg" className="w-full sm:w-auto">
               <Plus className="w-6 h-6 mr-2 stroke-[3]" />

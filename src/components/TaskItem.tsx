@@ -80,7 +80,7 @@ export function TaskItem({
             type="text"
             placeholder="Add subtask..."
             value={newSubTaskTitle}
-            onChange={(e) => setNewTaskTitle(e.target.value)}
+            onChange={(e) => setNewSubTaskTitle(e.target.value)}
             className="h-8 text-xs py-1 px-2 border-2"
             />
             <Button type="submit" size="sm" className="h-8 px-2 py-0 border-2 shadow-[2px_2px_0_0_#000]">
